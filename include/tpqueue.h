@@ -49,7 +49,7 @@ void TPQueue<T>::push(T value) {
             temp->next = current;
             return;
         }
-        while (current->next != nullptr && value.prior <= current->next->data.prior) {
+        while (current->next && pr <= current->next->data.prior) {
             current = current->next;
         }
         temp->next = current->next;
