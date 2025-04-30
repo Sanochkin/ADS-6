@@ -10,7 +10,7 @@ class TPQueue {
        T data;
        node* next;
      };
-     node* head,* tail;
+     node* head, * tail;
  public:
      TPQueue() :head(nullptr), tail(nullptr) {}
      ~TPQueue();
@@ -23,9 +23,9 @@ template<typename T>
 TPQueue<T>::~TPQueue() {
     while (head) {
         node* next = head->next;
-	delete head;
-	head = next;
-	}
+        delete head;
+        head = next;
+        }
     tail = nullptr;
 }
 
@@ -40,38 +40,37 @@ void TPQueue<T>::push(T value) {
     temp->data = value;
     temp -> next = nullptr;
     if (isEmpty()) {
-	head = tail = temp;
-    }
-    else {
-	int pr = value.prior;
-	node* current = head;
-	if (pr > head->data.prior) {
-	    head = temp;
-	    temp->next = current;
-	    return;
-	}
-	while (current->next != nullptr && value.prior <= current->next->data.prior) {
-	    current = current->next;
-	}
-	temp->next = current->next;
-	current->next = temp;
-	if (temp->next == nullptr) {
-	    tail = temp;
-	}
+        head = tail = temp;
+    } else {
+        int pr = value.prior;
+        node* current = head;
+        if (pr > head->data.prior) {
+            head = temp;
+            temp->next = current;
+            return;
+        }
+        while (current->next != nullptr && value.prior <= current->next->data.prior) {
+            current = current->next;
+        }
+        temp->next = current->next;
+        current->next = temp;
+        if (temp->next == nullptr) {
+            tail = temp;
+        }
     }
 }
 
 template<typename T>
 T TPQueue<T>::pop() {
     if (isEmpty()) {
-	throw std::string("Queue is empty");
+        throw std::string("Queue is empty");
     }
     node* old_head = head;
     T data = old_head->data;
     head = head->next;
     delete old_head;
     if (isEmpty())
-	tail = nullptr;
+        tail = nullptr;
     return data;
 }
 
